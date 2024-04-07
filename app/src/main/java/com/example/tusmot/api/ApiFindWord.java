@@ -33,7 +33,7 @@ public class ApiFindWord extends AsyncTask<Void, Void, String>{
             HttpURLConnection urlConnection = null;
 
             try{
-                url = new URL("https://trouve-mot.fr/api/sizemax/9");
+                url = new URL("https://trouve-mot.fr/api/sizemax/8");
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream in = urlConnection.getInputStream();
