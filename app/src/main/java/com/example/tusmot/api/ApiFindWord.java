@@ -1,4 +1,4 @@
-package com.example.tusmot;
+package com.example.tusmot.api;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
@@ -16,11 +16,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.Normalizer;
 
-public class Api extends AsyncTask<Void, Void, String>{
+public class ApiFindWord extends AsyncTask<Void, Void, String>{
 
     private TextView textView;
 
-    public Api(TextView textView) {
+    public ApiFindWord(TextView textView) {
         this.textView = textView;
     }
 
