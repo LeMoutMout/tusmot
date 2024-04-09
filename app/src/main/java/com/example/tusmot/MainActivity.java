@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements  KeyboardListener
                 if(word.contains("e")){
                     for(int i = 0; i < word.length(); i++){
                         if(String.valueOf(word.charAt(i)).equals("e")){
-                            word.charAt(i) = Character.valueOf('é');
+                            Character.valueOf('é');
                         }
                     }
                 }
