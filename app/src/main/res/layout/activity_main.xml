@@ -157,7 +157,7 @@
                 android:text="O" />
 
             <Button
-                android:id="@+id/p"
+                android:id="@+id/P"
                 android:layout_width="33dp"
                 android:layout_height="60dp"
                 android:layout_margin="3dp"
@@ -268,7 +268,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/backButton"
+                android:id="@+id/deleteButton"
                 android:layout_width="78dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
