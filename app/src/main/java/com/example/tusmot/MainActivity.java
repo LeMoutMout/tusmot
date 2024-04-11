@@ -121,10 +121,9 @@ public class MainActivity extends AppCompatActivity implements  KeyboardListener
             if (word.length() == grid.getWord(word.length()).length()) {
                 String mot = grid.getWord(word.length());
 
+                TestWordVariations testWordVariations = new TestWordVariations();
 
-                boolean exist = testWord(mot);
-
-
+                boolean exist = testWordVariations.testVariations(mot);
 
                 if (exist) {
                     grid.addWord(this, String.valueOf(word.getText()));
@@ -141,27 +140,4 @@ public class MainActivity extends AppCompatActivity implements  KeyboardListener
             e.printStackTrace();
         }
     }
-
-    public boolean testWord(String word){
-        try {
-            boolean exist = false;
-            ApiWiktionnaireCheckerWord apiWiktionnaireCheckerWord = new ApiWiktionnaireCheckerWord();
-            exist = apiWiktionnaireCheckerWord.execute(word).get();
-            if(!exist) {
-                if(word.contains("e")){
-                    for(int i = 0; i < word.length(); i++){
-                        if(String.valueOf(word.charAt(i)).equals("e")){
-                            Character.valueOf('é');
-                        }
-                    }
-                }
-            }
-            return exist;
-        } catch (Exception e) {
-            Log.e(TAG, "Une erreur s'est produite : ", e);
-            e.printStackTrace();
-        }
-        return false;
-    }
-
 }
