@@ -3,18 +3,13 @@ package com.example.tusmot;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import com.example.tusmot.api.ApiFindWord;
-import com.example.tusmot.api.ApiWiktionnaireCheckerWord;
-
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity implements  KeyboardListener {
 

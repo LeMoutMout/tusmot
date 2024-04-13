@@ -1,15 +1,13 @@
 package com.example.tusmot.api;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class ApiWiktionnaireCheckerWord extends AsyncTask<String, Void, Boolean> {
+
     @Override
     protected Boolean doInBackground(String... strings) {
         String word = strings[0];

@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.example.tusmot.api.ApiWiktionnaireCheckerWord;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,15 +23,18 @@ public class TestWordVariations {
     }
 
     private static List<String> generateVariations(String word) {
-
         List<String> variations = new ArrayList<>();
+        word = normalizeString(word);
         variations.add(word);
 
-        for (char c : word.toCharArray()) {
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
             String baseChar = String.valueOf(c);
             String[] specialChars = getSpecialCharacters(baseChar);
             for (String specialChar : specialChars) {
-                String variation = word.replace(baseChar, specialChar);
+                StringBuilder variationBuilder = new StringBuilder(word);
+                variationBuilder.setCharAt(i, specialChar.charAt(0));
+                String variation = variationBuilder.toString();
                 variations.add(variation);
             }
         }
@@ -61,8 +65,16 @@ public class TestWordVariations {
                 return new String[]{"î"};
             case "u":
                 return new String[]{"ù"};
+            case "c" :
+                return new String[]{"ç"};
             default:
                 return new String[0];
         }
+    }
+
+    private static String normalizeString(String input) {
+        return Normalizer.normalize(input, Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "")
+                .toLowerCase();
     }
 }
