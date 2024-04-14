@@ -17,18 +17,25 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.Normalizer;
 
-public class ApiFindWord extends AsyncTask<Void, Void, String>{
+public class ApiFindWord extends AsyncTask<String, Void, String>{
+
+    private String searchType;
 
     @Override
-    protected String doInBackground(Void... voids) {
+    protected String doInBackground(String... params) {
         String result = "";
+        searchType = params[0];
 
         try{
             URL url;
             HttpURLConnection urlConnection = null;
 
             try{
-                url = new URL("https://trouve-mot.fr/api/sizemax/8");
+                if ("dayWord".equals(searchType)) {
+                    url = new URL("https://trouve-mot.fr/api/daily");
+                } else {
+                    url = new URL("https://trouve-mot.fr/api/sizemax/8");
+                }
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream in = urlConnection.getInputStream();
@@ -60,13 +67,18 @@ public class ApiFindWord extends AsyncTask<Void, Void, String>{
         super.onPostExecute(wordJsonString);
         if (wordJsonString != null) {
             try {
-                JSONArray jsonArray = new JSONArray(wordJsonString);
-
-                if (jsonArray.length() > 0) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                if ("randomWord".equals(searchType)) {
+                    JSONArray jsonArray = new JSONArray(wordJsonString);
+                    if (jsonArray.length() > 0) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(0);
+                        String originalName = jsonObject.getString("name");
+                        String normalizedName = normalizeString(originalName);
+                        GameTusmot.setWord(normalizedName);
+                    }
+                } else if ("dayWord".equals(searchType)) {
+                    JSONObject jsonObject = new JSONObject(wordJsonString);
                     String originalName = jsonObject.getString("name");
                     String normalizedName = normalizeString(originalName);
-
                     GameTusmot.setWord(normalizedName);
                 }
             } catch (JSONException e) {

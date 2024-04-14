@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -35,21 +36,16 @@ public class GameTusmot extends AppCompatActivity implements  KeyboardListener {
         grid = new Grid(findViewById(R.id.grid_words), clavier);
 
         addKeyboardButtons();
-        new ApiFindWord() {
-            @Override
-            protected void onPostExecute(String result) {
-                super.onPostExecute(result);
 
-                grid.createGrid(GameTusmot.this, word.length());
+        String searchType = getIntent().getStringExtra("search_type");
 
-                grid.addLetter(GameTusmot.this, String.valueOf(word.charAt(0)));
-            }
-        }.execute();
+        performApiRequest(searchType);
 
         home.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                setContentView(R.layout.home_page);
+                Intent intent = new Intent(GameTusmot.this, HomePage.class);
+                startActivity(intent);
             }
         });
     }
@@ -103,6 +99,32 @@ public class GameTusmot extends AppCompatActivity implements  KeyboardListener {
             if (view instanceof Button || view instanceof ImageButton) {
                 clavier.addButton(view);
             }
+        }
+    }
+
+    private void performApiRequest(String searchType) {
+        if ("dayWord".equals(searchType)) {
+            new ApiFindWord() {
+                @Override
+                protected void onPostExecute(String result) {
+                    super.onPostExecute(result);
+
+                    grid.createGrid(GameTusmot.this, word.length());
+
+                    grid.addLetter(GameTusmot.this, String.valueOf(word.charAt(0)));
+                }
+            }.execute("dayWord");
+        } else {
+            new ApiFindWord() {
+                @Override
+                protected void onPostExecute(String result) {
+                    super.onPostExecute(result);
+
+                    grid.createGrid(GameTusmot.this, word.length());
+
+                    grid.addLetter(GameTusmot.this, String.valueOf(word.charAt(0)));
+                }
+            }.execute("randomWord");
         }
     }
 }
