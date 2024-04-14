@@ -4,7 +4,8 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.TextView;
+
+import com.example.tusmot.GameTusmot;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,12 +18,6 @@ import java.net.URL;
 import java.text.Normalizer;
 
 public class ApiFindWord extends AsyncTask<Void, Void, String>{
-
-    private TextView textView;
-
-    public ApiFindWord(TextView textView) {
-        this.textView = textView;
-    }
 
     @Override
     protected String doInBackground(Void... voids) {
@@ -72,7 +67,7 @@ public class ApiFindWord extends AsyncTask<Void, Void, String>{
                     String originalName = jsonObject.getString("name");
                     String normalizedName = normalizeString(originalName);
 
-                    textView.setText(normalizedName);
+                    GameTusmot.setWord(normalizedName);
                 }
             } catch (JSONException e) {
                 Log.e(TAG, "Error parsing JSON", e);
